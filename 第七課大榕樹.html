@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌳 第七課《大榕樹》互動學習網頁 🐦🚲👴</title>
+    <style>
+        :root {
+            --tree-green: #2E7D32;         /* 榕樹深綠 */
+            --light-green: #E8F5E9;        /* 清新綠底色 */
+            --forest-accent: #1B5E20;      /* 森林深綠 */
+            --earth-brown: #795548;        /* 樹幹褐色 */
+            --warm-yellow: #FFFDE7;        /* 溫暖陽光黃 */
+            --text-color: #1B2613;
+            --font-family: 'Segoe UI', "Microsoft JhengHei", "PingFang HK", sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--light-green);
+            /* Big Trees, Birds, Bicycle & Old man 森林公園自然主題背景 */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(46, 125, 50, 0.12) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(121, 85, 72, 0.15) 0%, transparent 25%),
+                linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 50%, #DCEDC8 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 980px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 28px;
+            box-shadow: 0 12px 35px rgba(46, 125, 50, 0.15);
+            border: 6px solid #A5D6A7;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--forest-accent), var(--tree-green));
+            padding: 22px;
+            border-radius: 20px;
+            border: 4px solid #C8E6C9;
+            box-shadow: 0 6px 0 #0D3B11;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: "🌳🐦🚲👴🏡";
+            position: absolute;
+            right: 15px;
+            bottom: -2px;
+            font-size: 2.2rem;
+            opacity: 0.7;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 5px 0;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-weight: bold;
+            color: #C8E6C9;
+            margin: 5px 0 0 0;
+            font-size: 1.05rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            background-color: #FFF;
+            border: 3px solid var(--tree-green);
+            border-radius: 50px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--forest-accent);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 0 var(--tree-green);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            background-color: var(--tree-green);
+            color: white;
+        }
+
+        .tab-btn.active {
+            background-color: var(--forest-accent);
+            color: white;
+            border-color: var(--forest-accent);
+            box-shadow: 0 4px 0 #0D3B11;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .word-card {
+            background: #FFF;
+            border: 3px solid #A5D6A7;
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        .word-card h3 {
+            margin: 0 0 10px 0;
+            color: var(--forest-accent);
+            font-size: 1.35rem;
+            border-bottom: 2px dashed var(--earth-brown);
+            padding-bottom: 5px;
+        }
+
+        .quiz-item {
+            background: #FFFDE7;
+            border: 2px solid #A5D6A7;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-top: 0;
+            color: var(--text-color);
+        }
+
+        .options label {
+            display: block;
+            background: white;
+            border: 2px solid #E0E0E0;
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .options label:hover {
+            background: #E8F5E9;
+            border-color: var(--tree-green);
+        }
+
+        .fill-blank-input {
+            border: none;
+            border-bottom: 3px solid var(--tree-green);
+            background: #E8F5E9;
+            padding: 4px 8px;
+            font-size: 1.05rem;
+            text-align: center;
+            width: 140px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 0 4px;
+        }
+
+        .btn-sound {
+            background-color: #E8F5E9;
+            border: 2px solid #81C784;
+            color: #2E7D32;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-sound:hover {
+            background-color: #81C784;
+            color: white;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--forest-accent), var(--tree-green));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 15px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #0D3B11;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #0D3B11;
+        }
+
+        .sentence-input {
+            width: 100%;
+            height: 75px;
+            border: 2px solid #CCC;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-top: 8px;
+            font-family: inherit;
+        }
+
+        .score-board {
+            text-align: center;
+            padding: 30px;
+            background: #FFF;
+            border-radius: 20px;
+            border: 4px dashed var(--tree-green);
+        }
+
+        .rule-card {
+            background: #F1F8E9;
+            border: 2px solid #C8E6C9;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .word-bank {
+            background: #E8F5E9;
+            border: 2px solid #81C784;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🌳 第七課《大榕樹》🐦🚲</h1>
+        <p class="subtitle">小三適用：大榕樹下的自然時光、動態句型練習與語法檢查員</p>
+    </header>
+
+    <!-- 5 個頁面導覽按鈕 -->
+    <nav class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('tab1')">📖 1. 詞義與例句</button>
+        <button class="tab-btn" onclick="switchTab('tab2')">🧩 2. 多項選擇題</button>
+        <button class="tab-btn" onclick="switchTab('tab3')">✍️ 3. 詞語填充題</button>
+        <button class="tab-btn" onclick="switchTab('tab4')">🏆 4. 成績計算</button>
+        <button class="tab-btn" onclick="switchTab('tab5')">📝 5. 書面語造句</button>
+    </nav>
+
+    <!-- 頁面 1：詞義與例句 -->
+    <section id="tab1" class="tab-content active">
+        <div class="rule-card">
+            💡 點擊每個詞語卡片底下的 <strong>「🔊 廣東話粵語發音」</strong> 按鈕，收聽標準粵語朗讀。
+        </div>
+        <div class="word-grid" id="word-list-container"></div>
+    </section>
+
+    <!-- 頁面 2：多項選擇題 -->
+    <section id="tab2" class="tab-content">
+        <h2>🧩 多項選擇題（共 17 題，涵蓋全課生字，每次刷新自動更換句型！）</h2>
+        <form id="mc-form"></form>
+        <button type="button" class="btn-submit" onclick="switchTab('tab3')">進入第 3 頁：填充題挑戰 ➡️</button>
+    </section>
+
+    <!-- 頁面 3：填充題 -->
+    <section id="tab3" class="tab-content">
+        <h2>✍️ 詞語填充題（共 17 題，涵蓋全課生字，每次刷新自動更換句型！）</h2>
+        <div class="word-bank">
+            📦 <strong>本課詞庫：</strong> 兒時、樹幹、編織、樹冠、褐色、氣根、轉圈圈、描繪、懷抱、粗大、茂密、遮檔、猛烈、垂、搖擺、眺望、黑漆漆
+        </div>
+        <form id="fill-form"></form>
+        <button type="button" class="btn-submit" onclick="calculateFinalScore()">提交答案並計算總分 🎉</button>
+    </section>
+
+    <!-- 頁面 4：成績計算 -->
+    <section id="tab4" class="tab-content">
+        <div class="score-board">
+            <h2>🏆 榕樹森林小博士評定 🌳</h2>
+            <div style="font-size: 4rem; margin: 15px 0; color: var(--forest-accent); font-weight: bold;">
+                <span id="total-score">0</span> / 100 分
+            </div>
+            <p id="score-comment" style="font-size: 1.2rem; font-weight: bold;"></p>
+            <div id="detail-feedback" style="text-align: left; background: white; padding: 15px; border-radius: 12px; margin-top: 20px; border: 1px solid #CCC; line-height: 1.6;"></div>
+            <button class="btn-submit" onclick="switchTab('tab5')" style="background: linear-gradient(135deg, #1B5E20, #2E7D32);">前往第 5 頁：書面語造句挑戰 ✍️</button>
+        </div>
+    </section>
+
+    <!-- 頁面 5：書面語造句 -->
+    <section id="tab5" class="tab-content">
+        <h2>📝 書面語造句練習（智能語法與邏輯檢查員）</h2>
+        
+        <div class="rule-card">
+            <h3>🤖 檢查員自動檢測規則：</h3>
+            <ul>
+                <li>🎲 <strong>隨機出題：</strong> 每次刷新網頁會隨機抽取 5 個生字。</li>
+                <li>關鍵字包含：句子必須包含指定抽出的生字。</li>
+                <li>字數限制：句子長度不得少於 10 個字。</li>
+                <li>廣東話口語檢測：自動提示廣東話口語字並指導替換為標準書面語。</li>
+                <li>句型完整度：鼓勵包含時間、人物、地點或因果/轉折關聯詞（如：因為…所以、雖然…但是、即使…仍然、不但…而且）。</li>
+            </ul>
+        </div>
+
+        <form id="sentence-form"></form>
+        <button type="button" class="btn-submit" onclick="checkAllSentences()">🤖 一鍵檢查所有造句！🎉</button>
+    </section>
+</div>
+
+<script>
+const vocabData = [
+    { id: 1, word: "兒時", meaning: "小時候、童年的時光。", sentence: "兒時，我最喜歡在大榕樹下踩單車玩耍。" },
+    { id: 2, word: "樹幹", meaning: "樹木的主幹，連接樹根和樹枝。", sentence: "大榕樹的樹幹十分粗大，要幾個人才能合抱。" },
+    { id: 3, word: "編織", meaning: "將枝條或線條互相交錯組合。", sentence: "小鳥用細小的枝條在樹枝間編織鳥巢。" },
+    { id: 4, word: "樹冠", meaning: "樹頂所有枝葉形成的圓形部分。", sentence: "大榕樹擁有寬闊的樹冠，就像一把巨大的綠傘。" },
+    { id: 5, word: "褐色", meaning: "近似啡色、茶色的顏色。", sentence: "老榕樹的樹皮呈現出深褐色。" },
+    { id: 6, word: "氣根", meaning: "榕樹特有的根鬚，由枝條向下垂落。", sentence: "無數條長長的氣根從榕樹枝椏向下垂落。" },
+    { id: 7, word: "轉圈圈", meaning: "圍繞著一點不斷旋轉。", sentence: "小朋友們在老爺爺和榕樹底下開心地轉圈圈。" },
+    { id: 8, word: "描繪", meaning: "用文字或圖畫刻畫景象。", sentence: "我用生動的文字描繪出大榕樹雄偉的樣子。" },
+    { id: 9, word: "懷抱", meaning: "雙手圍攏；比喻包容、環抱。", sentence: "大榕樹張開枝椏，好似將我們擁入溫暖的懷抱。" },
+    { id: 10, word: "粗大", meaning: "又粗又大。", sentence: "粗大的樹幹支撐起整棵榕樹茂密的枝葉。" },
+    { id: 11, word: "茂密", meaning: "枝葉生長得繁盛、濃密。", sentence: "夏日的大榕樹長滿了茂密的綠葉。" },
+    { id: 12, word: "遮檔", meaning: "阻擋、遮蔽（同「遮擋」）。", sentence: "濃密的樹葉可以遮檔午後猛烈的陽光。" },
+    { id: 13, word: "猛烈", meaning: "氣勢強大、十分厲害。", sentence: "即使遇上猛烈的強風，老榕樹依然挺拔屹立。" },
+    { id: 14, word: "垂", meaning: "由高處向下吊著、懸掛。", sentence: "長長細细的氣根從樹枝頭緩緩垂落。" },
+    { id: 15, word: "搖擺", meaning: "左右來回擺動。", sentence: "微風吹過，榕樹的枝葉在空中輕輕搖擺。" },
+    { id: 16, word: "眺望", meaning: "站在高處或遠處向遠方看。", sentence: "站在樹下，老爺爺帶着我們眺望遠處的田野。" },
+    { id: 17, word: "黑漆漆", meaning: "非常黑暗，沒有光線。", sentence: "太陽落山後，樹林裏變得黑漆漆一片。" }
+];
+
+const mcRawData = [
+    { ans: "兒時", options: ["兒時", "樹幹", "氣根", "黑漆漆"], desc: "指童年、小時候的時光。", sentences: ["每當想起（______）在樹下踩單車的情景，我心裏都很開心。", "老爺爺常常向我們講述他（______）的有趣故事。", "這張舊相片記錄了我（______）與小鳥嬉戲的歡樂畫面。"] },
+    { ans: "樹幹", options: ["樹幹", "樹冠", "氣根", "搖擺"], desc: "樹木的主要幹體。", sentences: ["這棵老榕樹的（______）非常粗大，要三個人才能合抱。", "小鳥停在粗壯的（______）上歇息歌唱。", "松鼠沿着高大的（______）迅速爬了上去。"] },
+    { ans: "編織", options: ["編織", "描繪", "遮檔", "眺望"], desc: "將線條或枝條互相交錯組合成物。", sentences: ["兩隻勤勞的小鳥正忙着用細枝（______）溫暖的鳥巢。", "老奶奶用毛線為我（______）了一頂漂亮的帽子。", "我們用草葉（______）出精美的小手工。"] },
+    { ans: "樹冠", options: ["樹冠", "樹幹", "氣根", "懷抱"], desc: "樹頂枝葉聚集成的部分。", sentences: ["大榕樹龐大的（______）向四周伸展，像一把綠色的大傘。", "陽光透過密密麻麻的（______），撒下點點金光。", "小鳥們在巨大的（______）層裏歡快地築巢。"] },
+    { ans: "褐色", options: ["褐色", "黑漆漆", "茂密", "猛烈"], desc: "深啡色或茶色。", sentences: ["老榕樹的樹皮呈深（______），充滿了歲月的痕跡。", "老爺爺穿了一件（______）的外套，坐在樹下休息。", "這隻小鳥羽毛呈漂亮的（______），十分可愛。"] },
+    { ans: "氣根", options: ["氣根", "樹冠", "樹幹", "遮檔"], desc: "榕樹從枝條垂下的特殊根鬚。", sentences: ["榕樹枝頭垂下無數條（______），隨風微微晃動。", "這些長長的（______）深入土裏，長成了新的樹幹。", "小朋友好奇地摸了摸榕樹垂下的（______）。"] },
+    { ans: "轉圈圈", options: ["轉圈圈", "搖擺", "眺望", "編織"], desc: "圍繞一點旋轉。", sentences: ["孩子們手拉手，在老榕樹下開心地上（______）。", "小鳥在空中翩翩起舞，不斷地（______）。", "妹妹穿着漂亮的新裙子，在草地上興奮地（______）。"] },
+    { ans: "描繪", options: ["描繪", "編織", "遮檔", "眺望"], desc: "用文字或繪畫表現景象。", sentences: ["畫家用豐富的色彩（______）出大榕樹的美麗姿態。", "課文中生動地（______）了老爺爺和孩子們玩耍的情景。", "請你用幾句話來（______）一下公園的景色。"] },
+    { ans: "懷抱", options: ["懷抱", "樹冠", "氣根", "樹幹"], desc: "雙手擁抱或比喻溫暖包容。", sentences: ["大榕樹張開繁茂的枝葉，彷彿將我們擁入（______）。", "小鳥飛回了森林母親的（______）之中。", "弟弟興奮地撲進媽媽溫暖的（______）。"] },
+    { ans: "粗大", options: ["粗大", "茂密", "猛烈", "黑漆漆"], desc: "又粗又大。", sentences: ["榕樹那（______）的樹幹給了小鳥安全的家。", "這棵大樹長着（______）的根系，牢牢抓住土地。", "老爺爺用（______）的手掌輕輕拍了拍我的肩膀。"] },
+    { ans: "茂密", options: ["茂密", "粗大", "猛烈", "褐色"], desc: "繁盛、濃密。", sentences: ["夏天到了，榕樹長出了（______）的綠葉。", "小鳥隱藏在（______）的樹叢中歡快地歌唱。", "公園裏有一片（______）的竹林，景色十分宜人。"] },
+    { ans: "遮檔", options: ["遮檔", "編織", "描繪", "搖擺"], desc: "阻擋、遮蔽光線或風雨。", sentences: ["大榕樹龐大的樹冠能為我們（______）夏日的酷熱。", "老爺爺撐起大傘，為旁邊的小單車（______）雨水。", "茂密的葉子（______）了視線，看不清樹上的小鳥。"] },
+    { ans: "猛烈", options: ["猛烈", "茂密", "粗大", "黑漆漆"], desc: "氣勢強大、劇烈。", sentences: ["即使面對（______）的風雨，老榕樹依然巍然不動。", "午後（______）的陽光照得大地發亮。", "海面上刮起了（______）的大風，樹木隨之擺動。"] },
+    { ans: "垂", options: ["垂", "搖擺", "眺望", "轉圈圈"], desc: "由高處向下吊落。", sentences: ["柳樹長長的枝條順着微風微微（______）下。", "無數條細小的氣根從高高的樹枝上（______）落。", "老爺爺低頭看了一眼（______）在肩膀上的毛巾。"] },
+    { ans: "搖擺", options: ["搖擺", "轉圈圈", "眺望", "垂"], desc: "左右來回擺動。", sentences: ["微風吹過，榕樹的枝葉在風中輕輕（______）。", "小船在波浪中左右（______），十分有趣。", "小鳥停在（______）的樹枝上，好奇地往下看。"] },
+    { ans: "眺望", options: ["眺望", "描繪", "編織", "遮檔"], desc: "站在高處向遠方望去。", sentences: ["我們站在山頂上，極目（______）遠處優美的風景。", "老爺爺停下單車，遠遠地（______）着天邊的晚霞。", "站在榕樹下，孩子們（______）着藍天上的飛鳥。"] },
+    { ans: "黑漆漆", options: ["黑漆漆", "褐色", "猛烈", "茂密"], desc: "非常黑暗，沒有光線。", sentences: ["夜幕降臨，原本熱鬧的樹林變得（______）一片。", "沒有開燈的房間裏（______）的，什麼也看不清。", "走出（______）的山洞，我們重新看到了明亮的陽光。"] }
+];
+
+const fillRawData = [
+    { ans: "兒時", sentences: ["每當想起（______）在榕樹下踩單車的快樂光景，我都無比懷念。", "老爺爺坐在樹下，常常娓娓道來他（______）的故事。", "這張泛黃的照片記錄了我（______）最純真的笑容。"] },
+    { ans: "樹幹", sentences: ["大榕樹粗壯的（______）上爬滿了綠色的藤蔓。", "小鳥在（______）上啄食，發出嗒嗒的聲響。", "幾位小朋友手拉手，試圖合抱這棵大樹的（______）。"] },
+    { ans: "編織", sentences: ["鳥媽媽飛來飛去，用乾草（______）着堅固的鳥巢。", "老奶奶的手非常巧，能用竹條（______）出漂亮的籃子。", "我們在樹下用落葉（______）成一個美麗的花環。"] },
+    { ans: "樹冠", sentences: ["大榕樹圓圓的（______）像一把巨傘，擋住了陽光。", "站在高處往下看，整片樹林的（______）連成了一片綠海。", "小鳥們在密集的（______）中快樂地建築家園。"] },
+    { ans: "褐色", sentences: ["歲月讓老樹皮變成了深的（______）。", "老爺爺騎着一輛（______）的舊單車來到公園。", "小鳥有性格張揚的彩羽，也有樸素的（______）羽毛。"] },
+    { ans: "氣根", sentences: ["無數條（______）從榕樹的枝幹懸掛下來，非常奇特。", "這些（______）接觸到地面後，會漸漸扎根生長。", "微風撫過，榕樹的（______）如窗簾般微微擺動。"] },
+    { ans: "轉圈圈", sentences: ["孩子們圍繞着老榕樹，歡快地（______）。", "幾隻小鳥在半空中追逐，興高采烈地（______）。", "妹妹拉着老爺爺的手，在草地上快樂地（______）。"] },
+    { ans: "描繪", sentences: ["作家用優美的文字，（______）出大自然生機勃勃的景象。", "畫家在畫板上仔細地（______）着老榕樹與單車。", "這首詩歌深刻地（______）了鄉村寧靜的午後。"] },
+    { ans: "懷抱", sentences: ["老榕樹繁茂的枝葉，就像母親溫暖的（______）。", "我們投入大自然的（______），感受風的呼吸。", "小鳥展翅飛翔，最終回到了大樹的（______）。"] },
+    { ans: "粗大", sentences: ["榕樹那（______）的樹根牢牢地伸入地底。", "老爺爺用（______）的手為孩子們修好單車。", "這條（______）的繩子足夠支撐鞦韆的重量。"] },
+    { ans: "茂密", sentences: ["夏天，公園裏的大樹長得十分（______）。", "小鳥築巢在（______）的樹葉深處，十分安全。", "我們在（______）的草地上歡快地踩單車。"] },
+    { ans: "遮檔", sentences: ["這棵大榕樹可以為我們（______）炎熱的陽光。", "老爺爺用布蓋住單車，以（______）灰塵。", "路邊的大樹（______）了部分視線。"] },
+    { ans: "猛烈", sentences: ["海風（______）地吹過，樹葉發出沙沙的響聲。", "夏天午後，（______）的陣雨傾盆而下。", "即使面對（______）的風暴，大樹依然堅強挺立。"] },
+    { ans: "垂", sentences: ["長長的氣根從高高的枝頭（______）了下來。", "柳樹的枝條溫柔地（______）在湖面上。", "老爺爺（______）下頭，認真地檢查單車鏈條。"] },
+    { ans: "搖擺", sentences: ["風一吹，樹上的氣根隨之輕輕（______）。", "小鳥在（______）的樹枝上保持平衡。", "鐘樓上的大鐘在空中左右（______）。"] },
+    { ans: "眺望", sentences: ["我們登上山頂，（______）遠處綿延不絕的山脈。", "老爺爺站在樹下，默默地（______）着遠方。", "小鳥停在高處，（______）着廣闊的天空。"] },
+    { ans: "黑漆漆", sentences: ["太陽落山後，原本通亮的森林變成了（______）的一片。", "夜晚沒有月光，四周（______）的。", "走進（______）的小巷，我們要格外小心。"] }
+];
+
+let generatedMcQuestions = [];
+let generatedFillQuestions = [];
+let random5Words = [];
+
+window.onload = function() {
+    renderTab1();
+    generateDynamicQuiz();
+    renderTab2();
+    renderTab3();
+    initTab5RandomWords();
+};
+
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    
+    document.getElementById(tabId).classList.add('active');
+    const index = parseInt(tabId.replace('tab', '')) - 1;
+    document.querySelectorAll('.tab-btn')[index].classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function speakCantonese(text) {
+    if (!('speechSynthesis' in window)) {
+        alert("您的瀏覽器暫不支援語音朗讀功能。");
+        return;
+    }
+    window.speechSynthesis.cancel();
+    const cleanText = text.replace(/<[^>]*>/g, '').replace(/（______）/g, '什麼');
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'zh-HK';
+    utterance.rate = 0.85;
+    window.speechSynthesis.speak(utterance);
+}
+
+function generateDynamicQuiz() {
+    generatedMcQuestions = mcRawData.map((item, idx) => {
+        let randSent = item.sentences[Math.floor(Math.random() * item.sentences.length)];
+        return {
+            q: `${idx + 1}. ${randSent}`,
+            options: item.options,
+            ans: item.ans,
+            desc: item.desc
+        };
+    });
+
+    generatedFillQuestions = fillRawData.map((item, idx) => {
+        let randSent = item.sentences[Math.floor(Math.random() * item.sentences.length)];
+        return {
+            q: randSent,
+            ans: item.ans
+        };
+    });
+}
+
+function renderTab1() {
+    const container = document.getElementById('word-list-container');
+    container.innerHTML = vocabData.map((item) => `
+        <div class="word-card">
+            <div>
+                <h3>${item.id}. ${item.word}</h3>
+                <p><strong>【解釋】：</strong>${item.meaning}</p>
+                <p><strong>【例句】：</strong>${item.sentence}</p>
+            </div>
+            <div>
+                <button type="button" class="btn-sound" onclick="speakCantonese('${item.word}。解釋：${item.meaning}。例句：${item.sentence}')">
+                    🔊 廣東話粵語發音
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderTab2() {
+    const form = document.getElementById('mc-form');
+    form.innerHTML = generatedMcQuestions.map((q, idx) => `
+        <div class="quiz-item">
+            <p class="question-text">${q.q}</p>
+            <div class="options">
+                ${q.options.map(opt => `
+                    <label>
+                        <input type="radio" name="mc_${idx}" value="${opt}" onchange="checkMcAnswer(${idx}, '${opt}', '${q.ans}')"> ${opt}
+                    </label>
+                `).join('')}
+            </div>
+            <button type="button" class="btn-sound" onclick="speakCantonese('${q.q}')">
+                🔊 廣東話粵語發音
+            </button>
+            <div id="mc_ans_msg_${idx}" style="display:none; margin-top:8px; padding:8px; border-radius:8px; font-weight:bold;"></div>
+        </div>
+    `).join('');
+}
+
+function checkMcAnswer(index, selected, correct) {
+    const msgEl = document.getElementById(`mc_ans_msg_${index}`);
+    msgEl.style.display = "block";
+    if (selected === correct) {
+        msgEl.style.background = "#E8F5E9";
+        msgEl.style.color = "#2E7D32";
+        msgEl.innerHTML = `✅ 回答正確！解析：${generatedMcQuestions[index].desc}`;
+    } else {
+        msgEl.style.background = "#FFEBEE";
+        msgEl.style.color = "#C62828";
+        msgEl.innerHTML = `❌ 答案不正確喔！正確答案是：<strong>${correct}</strong>。`;
+    }
+}
+
+function renderTab3() {
+    const form = document.getElementById('fill-form');
+    form.innerHTML = generatedFillQuestions.map((q, idx) => {
+        const sentenceWithInput = q.q.replace(/（______）/g, `<input type="text" class="fill-blank-input" id="fill_${idx}" placeholder="填入詞語">`);
+        return `
+        <div class="quiz-item">
+            <p class="question-text">
+                ${idx + 1}. ${sentenceWithInput}
+            </p>
+            <button type="button" class="btn-sound" onclick="speakCantonese('${q.q}')">
+                🔊 廣東話粵語發音
+            </button>
+        </div>
+        `;
+    }).join('');
+}
+
+function initTab5RandomWords() {
+    const shuffled = [...vocabData].sort(() => 0.5 - Math.random());
+    random5Words = shuffled.slice(0, 5);
+
+    const form = document.getElementById('sentence-form');
+    form.innerHTML = random5Words.map((item, idx) => `
+        <div class="quiz-item">
+            <label style="font-weight:bold; color:var(--forest-accent); font-size:1.1rem;">
+                第 ${idx + 1} 題：請運用生字「<span style="color:#D32F2F; font-size:1.25rem;">${item.word}</span>」造句：
+            </label>
+            <textarea class="sentence-input" id="sent_text_${idx}" placeholder="請使用標準書面語造句，並盡量包含時間、人物、地點或因果/轉折關聯詞…"></textarea>
+            
+            <div style="margin-top: 8px;">
+                <button type="button" class="btn-sound" style="background:#FFFDE7; border-color:#81C784; color:var(--text-color);" onclick="checkSingleSentence(${idx})">
+                    🤖 檢查第 ${idx + 1} 句
+                </button>
+            </div>
+            <div id="sent_feedback_${idx}" style="display:none; margin-top:10px; padding:10px; border-radius:8px; font-size:0.95rem; line-height:1.5;"></div>
+        </div>
+    `).join('');
+}
+
+function checkSingleSentence(index) {
+    const targetWord = random5Words[index].word;
+    const text = document.getElementById(`sent_text_${index}`).value.trim();
+    const feedbackEl = document.getElementById(`sent_feedback_${index}`);
+    
+    feedbackEl.style.display = "block";
+    let issues = [];
+
+    if (!text) {
+        feedbackEl.style.background = "#FFEBEE";
+        feedbackEl.style.color = "#C62828";
+        feedbackEl.innerHTML = "⚠️ 請先輸入造句內容再進行檢查！";
+        return false;
+    }
+
+    if (!text.includes(targetWord)) {
+        issues.push(`❌ <strong>缺少關鍵詞：</strong>句子中必須包含指定詞語「<strong>${targetWord}</strong>」。`);
+    }
+
+    if (text.length < 10) {
+        issues.push(`⚠️ 句子太簡短：缺乏完整的時間、人物或背景描寫（最少10字）。`);
+    }
+
+    const cantoWords = ["同", "喺", "睇", "冇", "唔", "嘅", "屋企", "嘢", "好食", "邊個", "諗住", "搞邊科", "俾", "仲", "傾偈", "行街", "單車", "鍾意"];
+    let foundCanto = cantoWords.filter(w => text.includes(w));
+    if (foundCanto.length > 0) {
+        issues.push(`⚠️ <strong>口語提示：</strong>檢測到廣東話口語字（<strong>${foundCanto.join("、")}</strong>），請改用標準書面語（例如：「同」改「和」、「喺」改「在」、「睇」改「看」、「俾」改「給」、「鍾意」改「喜歡」、「踩單車」改「騎自行車」）。`);
+    }
+
+    const connectives = [
+        ['即使', '仍然'],
+        ['雖然', '但是'],
+        ['因為', '所以'],
+        ['不但', '而且']
+    ];
+    
+    let hasConnective = false;
+    connectives.forEach(pair => {
+        if (text.includes(pair[0]) || text.includes(pair[1])) {
+            hasConnective = true;
+        }
+    });
+
+    if (!hasConnective) {
+        issues.push(`💡 <strong>句型優化建議：</strong>建議加入複句關聯詞（例如：['即使', '仍然']、['雖然', '但是']、['因為', '所以']、['不但', '而且']），使句法結構更完整！`);
+    }
+
+    if (issues.length > 0) {
+        feedbackEl.style.background = "#FFF3E0";
+        feedbackEl.style.color = "#E65100";
+        feedbackEl.style.border = "1px solid #FFE0B2";
+        feedbackEl.innerHTML = issues.join("<br>");
+        return false;
+    } else {
+        feedbackEl.style.background = "#E8F5E9";
+        feedbackEl.style.color = "#2E7D32";
+        feedbackEl.style.border = "1px solid #C8E6C9";
+        feedbackEl.innerHTML = "✅ <strong>太棒了！</strong> 句子結構完整，使用的是標準書面語，且邏輯通順！";
+        return true;
+    }
+}
+
+function checkAllSentences() {
+    for (let i = 0; i < random5Words.length; i++) {
+        checkSingleSentence(i);
+    }
+}
+
+function calculateFinalScore() {
+    let score = 0;
+    let feedback = "<strong>📝 特訓成績詳情：</strong><br><br>";
+    const totalQuestions = generatedMcQuestions.length + generatedFillQuestions.length;
+    const perQuestionScore = 100 / totalQuestions;
+
+    generatedMcQuestions.forEach((q, idx) => {
+        const selected = document.querySelector(`input[name="mc_${idx}"]:checked`);
+        const userAns = selected ? selected.value : "未作答";
+        if (userAns === q.ans) {
+            score += perQuestionScore;
+            feedback += `<span style="color:green;">✓ 選擇題 ${idx+1} 正確 (+${perQuestionScore.toFixed(2)}分)</span><br>`;
+        } else {
+            feedback += `<span style="color:red;">✗ 選擇題 ${idx+1} 錯誤（你選：${userAns}，正確：${q.ans}）</span><br>`;
+        }
+    });
+
+    generatedFillQuestions.forEach((q, idx) => {
+        const inputEl = document.getElementById(`fill_${idx}`);
+        const inputVal = inputEl ? inputEl.value.trim() : "";
+        if (inputVal === q.ans) {
+            score += perQuestionScore;
+            feedback += `<span style="color:green;">✓ 填充題 ${idx+1} 正確 (+${perQuestionScore.toFixed(2)}分)</span><br>`;
+        } else {
+            feedback += `<span style="color:red;">✗ 填充題 ${idx+1} 錯誤（你填：${inputVal || "空白"}，正確：${q.ans}）</span><br>`;
+        }
+    });
+
+    const finalScore = Math.round(score);
+    document.getElementById('total-score').innerText = finalScore;
+    const commentEl = document.getElementById('score-comment');
+
+    if (finalScore >= 90) {
+        commentEl.style.color = "#1B5E20";
+        commentEl.innerText = "🌳 太棒了！你是最優秀的榕樹森林小博士！完美掌握《大榕樹》課文詞語！";
+    } else if (finalScore >= 70) {
+        commentEl.style.color = "#2E7D32";
+        commentEl.innerText = "👍 表現相當好！再接再厲，距離滿分只差一點點！";
+    } else {
+        commentEl.style.color = "#D32F2F";
+        commentEl.innerText = "💪 不要灰心！回到第 1 頁多聽聽廣東話朗讀，你一定能取得好成績！";
+    }
+
+    document.getElementById('detail-feedback').innerHTML = feedback;
+    switchTab('tab4');
+}
+</script>
+</body>
+</html>
