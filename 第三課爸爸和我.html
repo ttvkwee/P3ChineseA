@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👨‍👧 第三課《爸爸和我》互動學習網頁 🍫🍰</title>
+    <style>
+        :root {
+            --daddy-brown: #4A2E2B;        /* 濃郁巧克力棕 */
+            --milk-chocolate: #795548;     /* 牛奶巧克力 */
+            --strawberry-pink: #F8BBD0;   /* 草莓蛋糕粉 */
+            --cake-cream: #FFF8E7;         /* 奶油奶油白 */
+            --warm-accent: #FF8A65;        /* 溫馨暖橘 */
+            --text-color: #3E2723;
+            --font-family: 'Segoe UI', "Microsoft JhengHei", "PingFang HK", sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--cake-cream);
+            /* 父女溫情 + 巧克力與蛋糕甜點卡哇伊主題背景 */
+            background-image: 
+                radial-gradient(circle at 10% 15%, rgba(121, 85, 72, 0.12) 0%, transparent 20%),
+                radial-gradient(circle at 90% 85%, rgba(248, 187, 208, 0.25) 0%, transparent 25%),
+                linear-gradient(135deg, #FFF8E7 0%, #FCE4EC 50%, #EFEBE9 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 980px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 28px;
+            box-shadow: 0 12px 35px rgba(74, 46, 43, 0.15);
+            border: 6px solid #D7CCC8;
+            padding: 25px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--daddy-brown), var(--milk-chocolate));
+            padding: 22px;
+            border-radius: 20px;
+            border: 4px solid var(--strawberry-pink);
+            box-shadow: 0 6px 0 #3E2723;
+            color: #FFFDE7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: "👨‍👧🍫🍰🧁💖";
+            position: absolute;
+            right: 15px;
+            bottom: -2px;
+            font-size: 2.2rem;
+            opacity: 0.7;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 5px 0;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-weight: bold;
+            color: var(--strawberry-pink);
+            margin: 5px 0 0 0;
+            font-size: 1.05rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            background-color: #FFF;
+            border: 3px solid var(--milk-chocolate);
+            border-radius: 50px;
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: var(--daddy-brown);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 0 var(--milk-chocolate);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            background-color: var(--milk-chocolate);
+            color: white;
+        }
+
+        .tab-btn.active {
+            background-color: var(--daddy-brown);
+            color: #FFFDE7;
+            border-color: var(--daddy-brown);
+            box-shadow: 0 4px 0 #2A1A18;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .word-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .word-card {
+            background: #FFF;
+            border: 3px solid #F8BBD0;
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(74, 46, 43, 0.05);
+        }
+
+        .word-card h3 {
+            margin: 0 0 10px 0;
+            color: var(--daddy-brown);
+            font-size: 1.35rem;
+            border-bottom: 2px dashed var(--warm-accent);
+            padding-bottom: 5px;
+        }
+
+        .quiz-item {
+            background: #FFFDE7;
+            border: 2px solid #D7CCC8;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 18px;
+        }
+
+        .question-text {
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-top: 0;
+            color: var(--text-color);
+        }
+
+        .options label {
+            display: block;
+            background: white;
+            border: 2px solid #E0D7D5;
+            padding: 10px 15px;
+            border-radius: 12px;
+            margin: 8px 0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .options label:hover {
+            background: #FCE4EC;
+            border-color: var(--warm-accent);
+        }
+
+        .fill-blank-input {
+            border: none;
+            border-bottom: 3px solid var(--milk-chocolate);
+            background: #FFF0F5;
+            padding: 4px 8px;
+            font-size: 1.05rem;
+            text-align: center;
+            width: 140px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 0 4px;
+        }
+
+        .btn-sound {
+            background-color: #F1F8E9;
+            border: 2px solid #81C784;
+            color: #2E7D32;
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+            transition: 0.2s;
+        }
+
+        .btn-sound:hover {
+            background-color: #81C784;
+            color: white;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--daddy-brown), var(--milk-chocolate));
+            color: #FFFDE7;
+            border: none;
+            border-radius: 50px;
+            padding: 15px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #2A1A18;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #2A1A18;
+        }
+
+        .sentence-input {
+            width: 100%;
+            height: 75px;
+            border: 2px solid #CCC;
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            margin-top: 8px;
+            font-family: inherit;
+        }
+
+        .score-board {
+            text-align: center;
+            padding: 30px;
+            background: #FFF;
+            border-radius: 20px;
+            border: 4px dashed var(--warm-accent);
+        }
+
+        .rule-card {
+            background: #FFF0F5;
+            border: 2px solid #F8BBD0;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .word-bank {
+            background: #E8F5E9;
+            border: 2px solid #81C784;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>👨‍👧 第三課《爸爸和我》🍫🍰</h1>
+        <p class="subtitle">小三適用：溫馨父女甜蜜學習時間、動態句型練習與語法檢查員</p>
+    </header>
+
+    <!-- 5 個頁面導覽按鈕 -->
+    <nav class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('tab1')">📖 1. 詞義與例句</button>
+        <button class="tab-btn" onclick="switchTab('tab2')">🧩 2. 多項選擇題</button>
+        <button class="tab-btn" onclick="switchTab('tab3')">✍️ 3. 詞語填充題</button>
+        <button class="tab-btn" onclick="switchTab('tab4')">🏆 4. 成績計算</button>
+        <button class="tab-btn" onclick="switchTab('tab5')">📝 5. 書面語造句</button>
+    </nav>
+
+    <!-- 頁面 1：詞義與例句 -->
+    <section id="tab1" class="tab-content active">
+        <div class="rule-card">
+            💡 點擊每個詞語卡片底下的 <strong>「🔊 廣東話粵語發音」</strong> 按鈕，收聽標準粵語朗讀。
+        </div>
+        <div class="word-grid" id="word-list-container"></div>
+    </section>
+
+    <!-- 頁面 2：多項選擇題 -->
+    <section id="tab2" class="tab-content">
+        <h2>🧩 多項選擇題（共 21 題，涵蓋全課生字，每次刷新自動更換句型！）</h2>
+        <form id="mc-form"></form>
+        <button type="button" class="btn-submit" onclick="switchTab('tab3')">進入第 3 頁：填充題挑戰 ➡️</button>
+    </section>
+
+    <!-- 頁面 3：填充題 -->
+    <section id="tab3" class="tab-content">
+        <h2>✍️ 詞語填充題（共 21 題，涵蓋全課生字，每次刷新自動更換句型！）</h2>
+        <div class="word-bank">
+            📦 <strong>本課詞庫：</strong> 冰淇淋、浮現、往事、親密、痛快、洋溢、感情、淡、傾談、辯論、親愛、腦海、歡樂、懂事、嚷、空閒、遊玩、趁、幸福、不知不覺、忙碌
+        </div>
+        <form id="fill-form"></form>
+        <button type="button" class="btn-submit" onclick="calculateFinalScore()">提交答案並計算總分 🎉</button>
+    </section>
+
+    <!-- 頁面 4：成績計算 -->
+    <section id="tab4" class="tab-content">
+        <div class="score-board">
+            <h2>🏆 甜蜜父女小博士評定 🧁</h2>
+            <div style="font-size: 4rem; margin: 15px 0; color: var(--daddy-brown); font-weight: bold;">
+                <span id="total-score">0</span> / 100 分
+            </div>
+            <p id="score-comment" style="font-size: 1.2rem; font-weight: bold;"></p>
+            <div id="detail-feedback" style="text-align: left; background: white; padding: 15px; border-radius: 12px; margin-top: 20px; border: 1px solid #CCC; line-height: 1.6;"></div>
+            <button class="btn-submit" onclick="switchTab('tab5')" style="background: linear-gradient(135deg, #795548, #4A2E2B);">前往第 5 頁：書面語造句挑戰 ✍️</button>
+        </div>
+    </section>
+
+    <!-- 頁面 5：書面語造句 -->
+    <section id="tab5" class="tab-content">
+        <h2>📝 書面語造句練習（智能語法與邏輯檢查員）</h2>
+        
+        <div class="rule-card">
+            <h3>🤖 檢查員自動檢測規則：</h3>
+            <ul>
+                <li>🎲 <strong>隨機出題：</strong> 每次刷新網頁會隨機抽取 5 個生字。</li>
+                <li>關鍵字包含：句子必須包含指定抽出的生字。</li>
+                <li>字數限制：句子長度不得少於 10 個字。</li>
+                <li>廣東話口語檢測：自動提示廣東話口語字並指導替換為標準書面語。</li>
+                <li>句型完整度：鼓勵包含時間、人物、地點或因果/轉折關聯詞（如：因為…所以、雖然…但是、即使…仍然、不但…而且）。</li>
+            </ul>
+        </div>
+
+        <form id="sentence-form"></form>
+        <button type="button" class="btn-submit" onclick="checkAllSentences()">🤖 一鍵檢查所有造句！🎉</button>
+    </section>
+</div>
+
+<script>
+const vocabData = [
+    { id: 1, word: "冰淇淋", meaning: "冷凍的甜品，口感冰涼香甜。", sentence: "夏日天氣炎熱，爸爸買朱古力冰淇淋給我吃。" },
+    { id: 2, word: "浮現", meaning: "慢慢顯現出來。", sentence: "一想起爸爸，開心的畫面就在腦海浮現。" },
+    { id: 3, word: "往事", meaning: "過去曾經發生過的事情。", sentence: "爸爸閒時會跟我講起他童年的往事。" },
+    { id: 4, word: "親密", meaning: "彼此關係十分親近。", sentence: "我和爸爸相處得十分親密。" },
+    { id: 5, word: "痛快", meaning: "暢快、盡興，盡情享受。", sentence: "假日我可以痛快地和爸爸一起遊玩。" },
+    { id: 6, word: "洋溢", meaning: "滿滿地散發出來。", sentence: "家裏洋溢着蛋糕和甜點的歡樂氣氛。" },
+    { id: 7, word: "感情", meaning: "人與人之間的情誼。", sentence: "我和爸爸之間有着深厚的感情。" },
+    { id: 8, word: "淡", meaning: "淺淺、不濃；亦指氣氛平靜。", sentence: "天色漸漸轉淡，黃昏隨之來臨。" },
+    { id: 9, word: "傾談", meaning: "互相坐下來交談心事。", sentence: "晚飯過後，我和爸爸一邊品嚐蛋糕，一邊好好傾談。" },
+    { id: 10, word: "辯論", meaning: "大家講出各自的意見，互相討論。", sentence: "我和爸爸常常會就書本上的內容展開辯論。" },
+    { id: 11, word: "親愛", meaning: "親切可愛，常用作親人的稱呼。", sentence: "親愛的爸爸，多謝你一直以來的陪伴。" },
+    { id: 12, word: "腦海", meaning: "大腦裏面，指思想、記憶之中。", sentence: "那些開心的畫面不斷在腦海出現。" },
+    { id: 13, word: "歡樂", meaning: "開心、快樂。", sentence: "每一次和爸爸去蛋糕店都充滿歡樂。" },
+    { id: 14, word: "懂事", meaning: "明白事理，體諒別人。", sentence: "我希望自己快快長大，變得更加懂事。" },
+    { id: 15, word: "嚷", meaning: "大聲叫喊、吵鬧。", sentence: "我不會隨意嚷着要買巧克力。" },
+    { id: 16, word: "空閒", meaning: "不用忙碌，有休息的時間。", sentence: "爸爸空閒的時候就會帶我到戶外散步。" },
+    { id: 17, word: "遊玩", meaning: "出外遊覽玩耍。", sentence: "趁着周末，爸爸帶我到公園遊玩。" },
+    { id: 18, word: "趁", meaning: "把握時間、抓緊時機。", sentence: "趁着天氣晴朗，我們一起外出運動。" },
+    { id: 19, word: "幸福", meaning: "內心感到滿足、快樂。", sentence: "有爸爸陪伴在身邊，我覺得十分幸福。" },
+    { id: 20, word: "不知不覺", meaning: "沒有察覺，時間悄悄過去。", sentence: "不知不覺，我和爸爸已經傾談了很久。" },
+    { id: 21, word: "忙碌", meaning: "事情很多，不停地工作。", sentence: "爸爸平日的工作十分忙碌。" }
+];
+
+const mcRawData = [
+    { ans: "冰淇淋", options: ["冰淇淋", "往事", "感情", "腦海"], desc: "指口感冰涼香甜的冷凍甜品。", sentences: ["炎炎夏日，我和爸爸一起品嚐朱古力（______）真解暑。", "爸爸買了我最喜歡的草莓（______）給我。", "我和爸爸在甜品店品嚐美味的（______）。"] },
+    { ans: "浮現", options: ["浮現", "傾談", "忙碌", "辯論"], desc: "指記憶或景象慢慢顯現出來。", sentences: ["每當看見這張舊照片，我和爸爸做蛋糕的情景便在腦海（______）。", "爸爸慈祥的笑容再次（______）在我面前。", "兒時的歡樂時光彷彿又（______）在眼前。"] },
+    { ans: "往事", options: ["往事", "空閒", "幸福", "機動"], desc: "指過去曾經發生過的事情。", sentences: ["爸爸常常向我講述他年輕時的（______）。", "那些美好的（______）總令人難以忘懷。", "爸爸和老朋友見面，開心地重提（______）。"] },
+    { ans: "親密", options: ["親密", "忙碌", "淡", "古老"], desc: "形容彼此關係非常親近、良好。", sentences: ["我和爸爸無話不談，父女關係十分（______）。", "我們父女倆從小感情（______），互相照顧。", "這是一張記錄我們一家人（______）時光的合照。"] },
+    { ans: "痛快", options: ["痛快", "懂事", "忙碌", "空閒"], desc: "指暢快、盡情享受、非常過癮。", sentences: ["考完試後，爸爸帶我去甜品店（______）地吃了一頓蛋糕。", "大家在泳池裏（______）地玩水，消解了暑氣。", "我們大口喝下涼爽的巧克力奶，感到十分（______）。"] },
+    { ans: "洋溢", options: ["洋溢", "浮現", "對付", "遊覽"], desc: "指充滿、滿滿地散發出來。", sentences: ["蛋糕店裏（______）着濃濃的巧克香味與喜慶氣氛。", "客廳裏（______）着我們父女倆的歡聲笑語。", "他的臉上（______）着自信而燦爛的笑容。"] },
+    { ans: "感情", options: ["感情", "設施", "場面", "街道"], desc: "指人與人之間建立的情誼。", sentences: ["經過多年的相處，我們建立起深厚的父女（______）。", "我和爸爸的（______）非常要好，像朋友一樣。", "這件禮物代表着我們之間真摯的（______）。"] },
+    { ans: "淡", options: ["淡", "親密", "痛快", "歡樂"], desc: "指味道、顏色淺，或氣氛平靜。", sentences: ["夕陽西下，天空中的晚霞顏色漸漸變（______）。", "這塊蛋糕的味道甜而不膩，茶香偏（______）。", "天色轉（______），夜晚即將降臨。"] },
+    { ans: "傾談", options: ["傾談", "辯論", "嚷", "遊玩"], desc: "指親密地互相坐下交談心事。", sentences: ["吃過蛋糕後，爸爸和我坐在沙發上愉快地（______）。", "遇到煩惱時，我喜歡找爸爸（______）。", "父女倆在書房裏（______）了許久。"] },
+    { ans: "辯論", options: ["辯論", "傾談", "嚷", "遊覽"], desc: "指大家提出不同意見互相討論。", sentences: ["同學們在中文課上就這題展開了熱烈的（______）。", "我和爸爸常為哪款巧克力最好吃而（______）。", "這是一場精彩無比的口才（______）比賽。"] },
+    { ans: "親愛", options: ["親愛", "懂事", "忙碌", "空閒"], desc: "親切可愛，常用於稱呼親近的人。", sentences: ["（______）的爸爸，祝你父親節快樂！", "（______）的爸爸每天都抽空陪我吃晚餐。", "這是我送給（______）爸爸的一份手工卡片。"] },
+    { ans: "腦海", options: ["腦海", "往事", "感情", "場面"], desc: "指大腦記憶、思想之中。", sentences: ["爸爸鼓勵我的話語深深地刻在我的（______）裏。", "與爸爸一起做蛋糕的畫面浮現在我的（______）中。", "這首動聽的歌曲一直在我的（______）中迴響。"] },
+    { ans: "歡樂", options: ["歡樂", "忙碌", "痛快", "親密"], desc: "指歡喜、快樂的感受。", sentences: ["郊遊當天，公園裏到處洋溢着（______）的聲音。", "我們父女兩人在主題樂園度過了（______）的一天。", "這場派對帶給小朋友們無盡的（______）。"] },
+    { ans: "懂事", options: ["懂事", "親愛", "忙碌", "痛快"], desc: "指明白事理、體諒他人。", sentences: ["我懂得幫忙做家務，爸爸誇我是個（______）的好女兒。", "隨着年齡增長，我們要變得更加（______）。", "女兒十分（______），從不讓父母操心。"] },
+    { ans: "嚷", options: ["嚷", "傾談", "辯論", "遊玩"], desc: "大聲叫喊或喧吵。", sentences: ["公共圖書館裏要保持安靜，不可以大聲大（______）。", "妹妹在蛋糕店門口（______）着要買巧克力蛋糕。", "媽媽提醒我們不要在走廊上吵（______）。"] },
+    { ans: "空閒", options: ["空閒", "忙碌", "痛快", "懂事"], desc: "指有休息的時間，不忙碌。", sentences: ["爸爸（______）時會陪我看書和烤蛋糕。", "利用（______）的時間多閱讀，能豐富我們的知識。", "等週末有（______）的時候，我們再去逛街吧。"] },
+    { ans: "遊玩", options: ["遊玩", "傾談", "辯論", "對付"], desc: "前往外出遊覽玩耍。", sentences: ["假期裏，爸爸帶我到郊外（______）。", "公園裏有許多小朋友在歡快地（______）。", "我們在海灘（______）了一整天，十分盡興。"] },
+    { ans: "趁", options: ["趁", "不知不覺", "往事", "幸福"], desc: "利用、把握某種時機或時間。", sentences: ["（______）着陽光正美好，爸爸帶我去公園散步。", "我們要（______）年幼時努力學習，打好基礎。", "爸爸（______）着假期帶我們全家去旅行。"] },
+    { ans: "幸福", options: ["幸福", "懂事", "歡樂", "親密"], desc: "生活美滿、內心滿足快樂。", sentences: ["能夠有爸爸親手製作的巧克力蛋糕，我覺得非常（______）。", "有家人的關愛與陪伴，就是最大的（______）。", "看着孩子健康成長，父母心中感到無比（______）。"] },
+    { ans: "不知不觉", options: ["不知不覺", "不如不覺", "往事", "痛快"], desc: "沒有察覺到，時間悄悄流逝。", sentences: ["時間過得真快，（______）就到了深夜。", "我和爸爸愉快地傾談着，（______）天色已經暗了下來。", "（______），我已經升上了小學三年級。"] },
+    { ans: "忙碌", options: ["忙碌", "空閒", "懂事", "親密"], desc: "事情繁多，沒有空閒。", sentences: ["爸爸平日工作（______），但依然會抽取時間陪我。", "蜂群在花叢中（______）地採蜜。", "臨近考試，同學們都處於（______）的複習中。"] }
+];
+
+const fillRawData = [
+    { ans: "冰淇淋", sentences: ["天氣炎熱時，爸爸買一杯巧克力（______）給我解暑。", "爸爸買了一盒香草味的（______）分享給我們。", "夏天去海邊玩耍，少不了美味的（______）。"] },
+    { ans: "浮現", sentences: ["每當想起爸爸的教誨，溫暖的畫面便在腦海（______）。", "看到這張我和爸爸做蛋糕的舊相片，回憶重新（______）出來。", "爸爸臉上（______）出親切的微笑。"] },
+    { ans: "往事", sentences: ["爸爸經常在吃蛋糕時向我提起他小時候的（______）。", "那些美好的（______）將永遠留在我的記憶中。", "回首（______），我們更加珍惜當下的生活。"] },
+    { ans: "親密", sentences: ["我和爸爸關係非常（______），就像好朋友一樣。", "我們父女倆相處得十分（______）融洽。", "這張（______）的合照記錄了我們溫馨的時刻。"] },
+    { ans: "痛快", sentences: ["做完功課後，我和爸爸（______）地吃了一碗甜品。", "大家在水上樂園（______）地暢玩了一整個下午。", "把心中的想法說出來後，我覺得非常（______）。"] },
+    { ans: "洋溢", sentences: ["烤蛋糕時，屋裏到處（______）着濃郁的香氣與笑聲。", "他的眼神中（______）着對未來的希望。", "會場內（______）着熱烈而溫馨的氣氛。"] },
+    { ans: "感情", sentences: ["我們父女之間的（______）非常深厚。", "長時間的共同生活讓他們的（______）更加緊密。", "這封信表達了我對爸爸最真摯的（______）。"] },
+    { ans: "淡", sentences: ["天空中的雲彩顏色漸漸變（______），黃昏將至。", "這款蛋糕甜度偏（______），帶着淡淡的奶香。", "隨着時間推移，悲傷的情緒逐漸變（______）了。"] },
+    { ans: "傾談", sentences: ["今晚我和爸爸一邊吃巧克力，一邊（______）了很久。", "遇到困惑時，找爸爸（______）很有幫助。", "父女倆在書房裏心貼心地（______）。"] },
+    { ans: "辯論", sentences: ["課堂上，同學們正就環保議題進行熱烈的（______）。", "我和爸爸常對書中情節展開有趣的（______）。", "這場（______）大賽展現了選手們敏捷的思維。"] },
+    { ans: "親愛", sentences: ["（______）的爸爸，感謝你一直以來對我的關愛。", "（______）的老師教導了我們許多做人的道理。", "這是我寫給（______）爸爸的溫馨卡片。"] },
+    { ans: "腦海", sentences: ["爸爸說的話時常縈繞在我的（______）中。", "與爸爸去甜品店的回憶永遠銘刻在我的（______）裏。", "一個巧妙的創意突現在我的（______）中。"] },
+    { ans: "歡樂", sentences: ["大家圍坐在客廳，享受着吃蛋糕的（______）時光。", "樂園裏充滿了小朋友們（______）的笑聲。", "這是一個充滿（______）與驚喜的週末。"] },
+    { ans: "懂事", sentences: ["我懂得主動體諒爸爸，是個（______）的好女兒。", "隨着長大，我們要學會獨立和（______）。", "老師誇獎我們三年級的同學越來越（______）了。"] },
+    { ans: "嚷", sentences: ["公共場所要安靜，不可大聲喧（______）。", "妹妹生氣地（______）着要吃巧克力蛋糕。", "請不要在走廊上亂（______）亂叫。"] },
+    { ans: "空閒", sentences: ["爸爸在（______）時會帶我到戶外烤甜點散步。", "合理安排時間，可以在（______）時多閱讀。", "這週末如果你有（______），我們一起去圖書館吧。"] },
+    { ans: "遊玩", sentences: ["趁着晴朗的假期，爸爸帶我到公園（______）。", "孩子們在草地上自由自在地（______）。", "香港有許多適合親子同樂的（______）好去處。"] },
+    { ans: "趁", sentences: ["我們要（______）着年輕光陰努力學習。", "（______）天色未暗，我們趕緊回家吧。", "爸爸（______）着週末假期帶全家去郊遊。"] },
+    { ans: "幸福", sentences: ["有爸爸陪伴並一起品嚐甜點，我覺得十分（______）。", "一家人健康平安地生活在一起就是（______）。", "看着女兒燦爛的笑容，爸爸心中洋溢着（______）。"] },
+    { ans: "不知不覺", sentences: ["我們聊得非常投契，（______）時間已經過了一小時。", "（______），秋天已經悄悄來到我們身邊。", "看書太投入了，（______）天已經黑了。"] },
+    { ans: "忙碌", sentences: ["爸爸每天工作都很（______），但依然關心我的學習。", "媽媽在廚房裏（______）地準備豐富的晚餐。", "街上行人步伐匆匆，一片（______）景象。"] }
+];
+
+let generatedMcQuestions = [];
+let generatedFillQuestions = [];
+let random5Words = [];
+
+window.onload = function() {
+    renderTab1();
+    generateDynamicQuiz();
+    renderTab2();
+    renderTab3();
+    initTab5RandomWords();
+};
+
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    
+    document.getElementById(tabId).classList.add('active');
+    const index = parseInt(tabId.replace('tab', '')) - 1;
+    document.querySelectorAll('.tab-btn')[index].classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+function speakCantonese(text) {
+    if (!('speechSynthesis' in window)) {
+        alert("您的瀏覽器暫不支援語音朗讀功能。");
+        return;
+    }
+    window.speechSynthesis.cancel();
+    const cleanText = text.replace(/<[^>]*>/g, '').replace(/（______）/g, '什麼');
+    const utterance = new SpeechSynthesisUtterance(cleanText);
+    utterance.lang = 'zh-HK';
+    utterance.rate = 0.85;
+    window.speechSynthesis.speak(utterance);
+}
+
+function generateDynamicQuiz() {
+    generatedMcQuestions = mcRawData.map((item, idx) => {
+        let randSent = item.sentences[Math.floor(Math.random() * item.sentences.length)];
+        return {
+            q: `${idx + 1}. ${randSent}`,
+            options: item.options,
+            ans: item.ans,
+            desc: item.desc
+        };
+    });
+
+    generatedFillQuestions = fillRawData.map((item, idx) => {
+        let randSent = item.sentences[Math.floor(Math.random() * item.sentences.length)];
+        return {
+            q: randSent,
+            ans: item.ans
+        };
+    });
+}
+
+function renderTab1() {
+    const container = document.getElementById('word-list-container');
+    container.innerHTML = vocabData.map((item) => `
+        <div class="word-card">
+            <div>
+                <h3>${item.id}. ${item.word}</h3>
+                <p><strong>【解釋】：</strong>${item.meaning}</p>
+                <p><strong>【例句】：</strong>${item.sentence}</p>
+            </div>
+            <div>
+                <button type="button" class="btn-sound" onclick="speakCantonese('${item.word}。解釋：${item.meaning}。例句：${item.sentence}')">
+                    🔊 廣東話粵語發音
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderTab2() {
+    const form = document.getElementById('mc-form');
+    form.innerHTML = generatedMcQuestions.map((q, idx) => `
+        <div class="quiz-item">
+            <p class="question-text">${q.q}</p>
+            <div class="options">
+                ${q.options.map(opt => `
+                    <label>
+                        <input type="radio" name="mc_${idx}" value="${opt}" onchange="checkMcAnswer(${idx}, '${opt}', '${q.ans}')"> ${opt}
+                    </label>
+                `).join('')}
+            </div>
+            <button type="button" class="btn-sound" onclick="speakCantonese('${q.q}')">
+                🔊 廣東話粵語發音
+            </button>
+            <div id="mc_ans_msg_${idx}" style="display:none; margin-top:8px; padding:8px; border-radius:8px; font-weight:bold;"></div>
+        </div>
+    `).join('');
+}
+
+function checkMcAnswer(index, selected, correct) {
+    const msgEl = document.getElementById(`mc_ans_msg_${index}`);
+    msgEl.style.display = "block";
+    if (selected === correct) {
+        msgEl.style.background = "#E8F5E9";
+        msgEl.style.color = "#2E7D32";
+        msgEl.innerHTML = `✅ 回答正確！解析：${generatedMcQuestions[index].desc}`;
+    } else {
+        msgEl.style.background = "#FFEBEE";
+        msgEl.style.color = "#C62828";
+        msgEl.innerHTML = `❌ 答案不正確喔！正確答案是：<strong>${correct}</strong>。`;
+    }
+}
+
+function renderTab3() {
+    const form = document.getElementById('fill-form');
+    form.innerHTML = generatedFillQuestions.map((q, idx) => {
+        const sentenceWithInput = q.q.replace(/（______）/g, `<input type="text" class="fill-blank-input" id="fill_${idx}" placeholder="填入詞語">`);
+        return `
+        <div class="quiz-item">
+            <p class="question-text">
+                ${idx + 1}. ${sentenceWithInput}
+            </p>
+            <button type="button" class="btn-sound" onclick="speakCantonese('${q.q}')">
+                🔊 廣東話粵語發音
+            </button>
+        </div>
+        `;
+    }).join('');
+}
+
+function initTab5RandomWords() {
+    const shuffled = [...vocabData].sort(() => 0.5 - Math.random());
+    random5Words = shuffled.slice(0, 5);
+
+    const form = document.getElementById('sentence-form');
+    form.innerHTML = random5Words.map((item, idx) => `
+        <div class="quiz-item">
+            <label style="font-weight:bold; color:var(--daddy-brown); font-size:1.1rem;">
+                第 ${idx + 1} 題：請運用生字「<span style="color:#D32F2F; font-size:1.25rem;">${item.word}</span>」造句：
+            </label>
+            <textarea class="sentence-input" id="sent_text_${idx}" placeholder="請使用標準書面語造句，並盡量包含時間、人物、地點或因果/轉折關聯詞…"></textarea>
+            
+            <div style="margin-top: 8px;">
+                <button type="button" class="btn-sound" style="background:#FFFDE7; border-color:var(--warm-accent); color:var(--text-color);" onclick="checkSingleSentence(${idx})">
+                    🤖 檢查第 ${idx + 1} 句
+                </button>
+            </div>
+            <div id="sent_feedback_${idx}" style="display:none; margin-top:10px; padding:10px; border-radius:8px; font-size:0.95rem; line-height:1.5;"></div>
+        </div>
+    `).join('');
+}
+
+function checkSingleSentence(index) {
+    const targetWord = random5Words[index].word;
+    const text = document.getElementById(`sent_text_${index}`).value.trim();
+    const feedbackEl = document.getElementById(`sent_feedback_${index}`);
+    
+    feedbackEl.style.display = "block";
+    let issues = [];
+
+    if (!text) {
+        feedbackEl.style.background = "#FFEBEE";
+        feedbackEl.style.color = "#C62828";
+        feedbackEl.innerHTML = "⚠️ 請先輸入造句內容再進行檢查！";
+        return false;
+    }
+
+    if (!text.includes(targetWord)) {
+        issues.push(`❌ <strong>缺少關鍵詞：</strong>句子中必須包含指定詞語「<strong>${targetWord}</strong>」。`);
+    }
+
+    if (text.length < 10) {
+        issues.push(`⚠️ 句子太簡短：缺乏完整的時間、人物或背景描寫（最少10字）。`);
+    }
+
+    const cantoWords = ["同", "喺", "睇", "冇", "唔", "嘅", "屋企", "嘢", "好食", "邊個", "諗住", "搞邊科", "俾", "仲", "傾偈", "行街"];
+    let foundCanto = cantoWords.filter(w => text.includes(w));
+    if (foundCanto.length > 0) {
+        issues.push(`⚠️ <strong>口語提示：</strong>檢測到廣東話口語字（<strong>${foundCanto.join("、")}</strong>），請改用標準書面語（例如：「同」改「和」、「喺」改「在」、「睇」改「看」、「俾」改「給」）。`);
+    }
+
+    const connectives = [
+        ['即使', '仍然'],
+        ['雖然', '但是'],
+        ['因為', '所以'],
+        ['不但', '而且']
+    ];
+    
+    let hasConnective = false;
+    connectives.forEach(pair => {
+        if (text.includes(pair[0]) || text.includes(pair[1])) {
+            hasConnective = true;
+        }
+    });
+
+    if (!hasConnective) {
+        issues.push(`💡 <strong>句型優化建議：</strong>建議加入複句關聯詞（例如：['即使', '仍然']、['雖然', '但是']、['因為', '所以']、['不但', '而且']），使句法結構更完整！`);
+    }
+
+    if (issues.length > 0) {
+        feedbackEl.style.background = "#FFF3E0";
+        feedbackEl.style.color = "#E65100";
+        feedbackEl.style.border = "1px solid #FFE0B2";
+        feedbackEl.innerHTML = issues.join("<br>");
+        return false;
+    } else {
+        feedbackEl.style.background = "#E8F5E9";
+        feedbackEl.style.color = "#2E7D32";
+        feedbackEl.style.border = "1px solid #C8E6C9";
+        feedbackEl.innerHTML = "✅ <strong>太棒了！</strong> 句子結構完整，使用的是標準書面語，且邏輯通順！";
+        return true;
+    }
+}
+
+function checkAllSentences() {
+    for (let i = 0; i < random5Words.length; i++) {
+        checkSingleSentence(i);
+    }
+}
+
+function calculateFinalScore() {
+    let score = 0;
+    let feedback = "<strong>📝 特訓成績詳情：</strong><br><br>";
+    const totalQuestions = generatedMcQuestions.length + generatedFillQuestions.length;
+    const perQuestionScore = 100 / totalQuestions;
+
+    generatedMcQuestions.forEach((q, idx) => {
+        const selected = document.querySelector(`input[name="mc_${idx}"]:checked`);
+        const userAns = selected ? selected.value : "未作答";
+        if (userAns === q.ans) {
+            score += perQuestionScore;
+            feedback += `<span style="color:green;">✓ 選擇題 ${idx+1} 正確 (+${perQuestionScore.toFixed(2)}分)</span><br>`;
+        } else {
+            feedback += `<span style="color:red;">✗ 選擇題 ${idx+1} 錯誤（你選：${userAns}，正確：${q.ans}）</span><br>`;
+        }
+    });
+
+    generatedFillQuestions.forEach((q, idx) => {
+        const inputEl = document.getElementById(`fill_${idx}`);
+        const inputVal = inputEl ? inputEl.value.trim() : "";
+        if (inputVal === q.ans) {
+            score += perQuestionScore;
+            feedback += `<span style="color:green;">✓ 填充題 ${idx+1} 正確 (+${perQuestionScore.toFixed(2)}分)</span><br>`;
+        } else {
+            feedback += `<span style="color:red;">✗ 填充題 ${idx+1} 錯誤（你填：${inputVal || "空白"}，正確：${q.ans}）</span><br>`;
+        }
+    });
+
+    const finalScore = Math.round(score);
+    document.getElementById('total-score').innerText = finalScore;
+    const commentEl = document.getElementById('score-comment');
+
+    if (finalScore >= 90) {
+        commentEl.style.color = "#4A2E2B";
+        commentEl.innerText = "👨‍👧 太棒了！你是最優秀的甜蜜父女小博士！完美掌握《爸爸和我》課文詞語！";
+    } else if (finalScore >= 70) {
+        commentEl.style.color = "#FF8A65";
+        commentEl.innerText = "👍 表現相當好！再接再厲，距離滿分只差一點點！";
+    } else {
+        commentEl.style.color = "#D32F2F";
+        commentEl.innerText = "💪 不要灰心！回到第 1 頁多聽聽廣東話朗讀，你一定能取得好成績！";
+    }
+
+    document.getElementById('detail-feedback').innerHTML = feedback;
+    switchTab('tab4');
+}
+</script>
+</body>
+</html>
