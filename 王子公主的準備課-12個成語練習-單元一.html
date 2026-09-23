@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>王子公主的準備課 💪🏻 12個成語練習 (Woodland 8頁版)</title>
+  <style>
+    :root {
+      --bg-color: #f4f8f3;
+      --primary-green: #4a7c59;
+      --accent-orange: #e07a5f;
+      --soft-yellow: #f2cc8f;
+      --text-dark: #3d405b;
+      --card-bg: #ffffff;
+      --border-radius: 16px;
+    }
+
+    body {
+      font-family: "PingFang HK", "Microsoft JhengHei", "Heiti TC", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-dark);
+      margin: 0;
+      padding: 0;
+      background-image: radial-gradient(#c8d6af 15%, transparent 16%);
+      background-size: 30px 30px;
+    }
+
+    header {
+      background-color: var(--primary-green);
+      color: white;
+      text-align: center;
+      padding: 15px 10px;
+      border-bottom: 5px solid var(--accent-orange);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      background-color: #d8e2dc;
+      padding: 10px;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background-color: white;
+      border: 2px solid var(--primary-green);
+      color: var(--primary-green);
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background-color: var(--primary-green);
+      color: white;
+      transform: scale(1.03);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 15px 40px 15px;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 2px solid #e0e7da;
+    }
+
+    h2 {
+      color: var(--primary-green);
+      border-bottom: 3px dashed var(--soft-yellow);
+      padding-bottom: 8px;
+      margin-top: 0;
+    }
+
+    .audio-btn {
+      background-color: var(--accent-orange);
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      font-size: 0.85rem;
+      border-radius: 15px;
+      cursor: pointer;
+      margin-left: 8px;
+      transition: background 0.2s;
+    }
+
+    .audio-btn:hover {
+      background-color: #c96043;
+    }
+
+    .idiom-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 15px;
+    }
+
+    .idiom-item {
+      background: #fefae0;
+      padding: 12px 15px;
+      border-radius: 12px;
+      border-left: 5px solid var(--accent-orange);
+    }
+
+    .story-text {
+      line-height: 1.8;
+      font-size: 1.05rem;
+      text-align: justify;
+      background: #faf9f6;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .q-box {
+      margin-bottom: 15px;
+      padding: 15px;
+      background: #f9fbf8;
+      border-radius: 10px;
+      border: 1px solid #d0e1d4;
+    }
+
+    select, textarea {
+      font-size: 1rem;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin: 6px 0;
+    }
+
+    textarea {
+      width: 97%;
+      height: 70px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background-color: var(--primary-green);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      display: inline-block;
+      margin: 10px 5px 0 0;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .submit-btn:hover {
+      background-color: #3b6346;
+    }
+
+    .result-box {
+      background: #e9edc9;
+      padding: 15px;
+      border-radius: 12px;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .word-bank {
+      background-color: var(--soft-yellow);
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-weight: bold;
+    }
+
+    .word-tag {
+      background: white;
+      padding: 4px 12px;
+      border-radius: 15px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .cantonese-tip {
+      background-color: #e8f4f8;
+      border-left: 4px solid #2a9d8f;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      font-size: 0.95rem;
+    }
+
+    .score-display-card {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .score-number {
+      font-size: 3rem;
+      color: var(--accent-orange);
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .checker-feedback {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🌲 王子公主的準備課 💪🏻 成語學習小天地 🐻</h1>
+</header>
+
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="switchPage(1)">1. 解釋與例句</button>
+  <button class="tab-btn" onclick="switchPage(2)">2. Hide & Seek 故事</button>
+  <button class="tab-btn" onclick="switchPage(3)">3. 填充 (1-6)</button>
+  <button class="tab-btn" onclick="switchPage(4)">4. 填充 (7-12)</button>
+  <button class="tab-btn" onclick="switchPage(5)">5. 填充總分結算</button>
+  <button class="tab-btn" onclick="switchPage(6)">6. 多項選擇題</button>
+  <button class="tab-btn" onclick="switchPage(7)">7. 選擇題分數結算</button>
+  <button class="tab-btn" onclick="switchPage(8)">8. 書面語造句檢查</button>
+</div>
+
+<div class="container">
+
+  <!-- PAGE 1: 解釋與例句 -->
+  <div id="page1" class="page active">
+    <div class="card">
+      <h2>📖 頁面 1：12個成語重點釋義與例句
+        <button class="audio-btn" onclick="speak('單元一 12個成語解釋與例句')">🔊 粵語語音</button>
+      </h2>
+      <div class="idiom-grid" id="idiomListDisplay"></div>
+    </div>
+  </div>
+
+  <!-- PAGE 2: Hide & Seek 故事 -->
+  <div id="page2" class="page">
+    <div class="card">
+      <h2>🌲 頁面 2：Hide and Seek 12個成語故事
+        <button class="audio-btn" onclick="speakTextById('storyContent')">🔊 廣東話粵語朗讀故事</button>
+      </h2>
+      <div class="story-text" id="storyContent">
+        森林裡舉辦了一場熱鬧的跑步障礙大賽，實力最強的獅子和豹子一同參賽。兩者的體能與速度<strong>不相上下</strong>，開賽之後立刻展開激烈比拼，雙方<strong>龍爭虎鬥</strong>，你追我趕、互不退讓，讓現場的小動物看得目不轉睛。<br><br>
+        小兔子看見比賽精彩刺激，心裡躍躍欲試，也想上場挑戰。其實小兔子的體能遠不及其他選手，一開始的想法有點<strong>不自量力</strong>，誤以為自己可以輕鬆戰勝對手。慈祥的兔媽媽知道後，耐心教導牠：「做事一定要<strong>量力而為</strong>，清楚自己的實力，不要隨便逞強，才是最穩妥的做法。」<br><br>
+        比賽正式開始，經驗豐富的獅子狀態十足，一開局就<strong>旗開得勝</strong>，一路領先所有參賽者。小兔子起步稍慢，開局就落後一大段，但牠沒有灰心退縮，把握每一次機會<strong>急起直追</strong>，一步步縮短差距。<br><br>
+        比賽來到中途，長時間的奔跑讓獅子體力透支、氣喘吁吁，牠一度想要停下休息，差點<strong>半途而廢</strong>、放棄比賽。就在獅子意志動搖的時候，小兔子把握機會，<strong>出其不意</strong>選擇了一條隱藏的快捷小路，憑著堅韌的毅力奮力前進，最後竟然<strong>後來居上</strong>，從落後的位置追了上去。<br><br>
+        比賽最後的關卡十分困難，一棵粗大的樹木橫倒在路上，完全擋住了前進的道路。其他小動物看見障礙都慌張失措，唯獨獅子鎮定沉穩、<strong>從容不迫</strong>，絲毫沒有慌亂。面對眼前的難題，牠<strong>急中生智</strong>，快速想到了繞行樹旁空間的好方法，順利突破關卡。<br><br>
+        突破最大的阻礙後，獅子重新振作精神、鼓足幹勁，<strong>一鼓作氣</strong>全力衝刺，朝著終點奮力奔去，完美完成了整場比賽。<br><br>
+        這場精彩的比賽讓所有小動物明白：做人做事既要懂得衡量自己、量力而為，也要擁有不放棄的毅力，遇到困難冷靜思考、勇敢堅持，才能收穫最好的成果。
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 3: 填充 1-6 -->
+  <div id="page3" class="page">
+    <div class="card">
+      <h2>✏️ 頁面 3：成語填空練習 (1 - 6 題)</h2>
+      <div class="word-bank" id="wordBank1"></div>
+      <button class="audio-btn" onclick="generateFill1Questions()">🔄 刷新全新例句</button>
+      <div id="fillSection1" style="margin-top:15px;"></div>
+      <button class="submit-btn" onclick="checkFill1Answers()">提交第 1-6 題答案</button>
+      <div id="fill1Status" class="result-box" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- PAGE 4: 填充 7-12 -->
+  <div id="page4" class="page">
+    <div class="card">
+      <h2>✏️ 頁面 4：成語填空練習 (7 - 12 題)</h2>
+      <div class="word-bank" id="wordBank2"></div>
+      <button class="audio-btn" onclick="generateFill2Questions()">🔄 刷新全新例句</button>
+      <div id="fillSection2" style="margin-top:15px;"></div>
+      <button class="submit-btn" onclick="checkFill2Answers()">提交第 7-12 題答案</button>
+      <div id="fill2Status" class="result-box" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- PAGE 5: 填充總分結算 -->
+  <div id="page5" class="page">
+    <div class="card score-display-card">
+      <h2>📊 頁面 5：填充題總分計算結算 (Marks Calculation)</h2>
+      <p>這裡會自動計算【第 3 頁】與【第 4 頁】的填充題總成績：</p>
+      <div class="score-number" id="totalFillScoreDisplay">0 / 24</div>
+      <p id="totalFillFeedback">請先完成第 3 頁與第 4 頁的填充題並點擊提交！</p>
+      <button class="submit-btn" onclick="calculateTotalFillMarks()">重新整理並計算總分</button>
+    </div>
+  </div>
+
+  <!-- PAGE 6: 多項選擇題 -->
+  <div id="page6" class="page">
+    <div class="card">
+      <h2>🎯 頁面 6：多項選擇題（共 12 題全新例句）</h2>
+      <p>請揀選最合適的成語，可點擊按鈕收聽廣東話發音：</p>
+      <button class="audio-btn" onclick="generateMcQuestions()">🔄 刷新全新題目選項</button>
+      <div id="mcSection" style="margin-top:15px;"></div>
+      <button class="submit-btn" onclick="checkMcAnswers()">提交選擇題答案</button>
+      <div id="mcStatus" class="result-box" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- PAGE 7: 選擇題分數結算 -->
+  <div id="page7" class="page">
+    <div class="card score-display-card">
+      <h2>📊 頁面 7：多項選擇題分數結算 (Marks Calculation)</h2>
+      <p>【第 6 頁】多項選擇題所得分數：</p>
+      <div class="score-number" id="totalMcScoreDisplay">0 / 12</div>
+      <p id="totalMcFeedback">請先在第 6 頁完成多項選擇題並點擊提交！</p>
+      <button class="submit-btn" onclick="calculateMcMarks()">重新整理並計算選擇題分數</button>
+    </div>
+  </div>
+
+  <!-- PAGE 8: 書面語造句 & 語法邏輯檢查員 -->
+  <div id="page8" class="page">
+    <div class="card">
+      <h2>✍️ 頁面 8：書面語造句練習與語法邏輯檢查員</h2>
+      
+      <div class="cantonese-tip">
+        <strong>💡 廣東話（粵語口語）vs 書面語 分別教導：</strong><br>
+        口語：「佢地兩個跑步好快，平手分唔到勝負。」 ❌<br>
+        書面語：「他們兩人的速度非常快，實力<strong>不相上下</strong>，無法分出勝負。」 ✅<br>
+        <em>小貼士：記得把口語「佢地」改為「他們」、「唔好」改為「不要」、「睇」改為「看」喔！</em>
+      </div>
+
+      <p>🎲 系統為你隨機抽取的 5 個成語為：<br>
+        <span id="random5WordsDisplay" style="font-weight:bold; color:var(--accent-orange); font-size:1.1rem;"></span>
+        <button class="audio-btn" onclick="refreshRandom5Words()">🔄 重新隨機抽取 5 個詞語</button>
+      </p>
+
+      <div id="sentenceBuildingArea"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // 12 個成語資料庫與多樣化例句庫
+  const idiomsData = [
+    { id: 1, name: "不相上下", def: "雙方實力差不多，分不出高低", 
+      sentences: [
+        "兩位選手的技術____，裁判要仔細觀察才能分出勝負。",
+        "這兩間餐廳的食物味道____，很多客人難以選擇。",
+        "小明和小輝的數學成績____，兩人經常互相切磋。",
+        "這兩幅畫作都十分出色，藝術水準____。"
+      ]
+    },
+    { id: 2, name: "龍爭虎鬥", def: "實力強的雙方激烈比拼", 
+      sentences: [
+        "冠軍決賽之中，兩隊實力強勁，場面展開一場____，十分精彩。",
+        "兩位棋壇高手對決，過程有如____，每一步都充滿挑戰。",
+        "田徑大賽的最後一圈，頂尖跑手____，觀眾都看得緊張。",
+        "這場籃球決賽雙方實力相當，勢必是一場精彩的____。"
+      ]
+    },
+    { id: 3, name: "不自量力", def: "高估自己、勉強做能力不夠的事", 
+      sentences: [
+        "體力不足的人硬要挑戰長途登山，實在是____。",
+        "小小的蝦想和大魚搏鬥，可說是____。",
+        "沒有練習就參加高難度比賽，這種行為就是____。",
+        "剛學會游泳就想挑戰渡海，簡直是____。"
+      ]
+    },
+    { id: 4, name: "量力而為", def: "看清自己能力，適當做事、不逞強", 
+      sentences: [
+        "搬運重物的時候，我們要____，不要勉強自己。",
+        "參加體育訓練必須____，避免身體受傷。",
+        "分配工作時，大家要____，揀選自己可以完成的任務。",
+        "做慈善捐款時應____，表達心意即可。"
+      ]
+    },
+    { id: 5, name: "旗開得勝", def: "一開始就取得優勢、獲得好成績", 
+      sentences: [
+        "學校足球隊首場賽事____，全隊的士氣大大提升。",
+        "新書上市就____，銷量遠超大家的預期。",
+        "代表隊出戰第一場比賽便____，打下良好基礎。",
+        "我們的商業項目剛啟動就____，順利簽下第一個大合約。"
+      ]
+    },
+    { id: 6, name: "急起直追", def: "落後之後努力趕上別人", 
+      sentences: [
+        "小琳開學時成績落後，之後努力溫習，終於____。",
+        "比賽起步時落後的跑手不斷加速，____，拉近距離。",
+        "見到同學不斷進步，小浩決定____，好好用功讀書。",
+        "我們在比賽後半段____，最終把比分拉平。"
+      ]
+    },
+    { id: 7, name: "半途而廢", def: "做事做到一半就放棄", 
+      sentences: [
+        "學習樂器一定要堅持，千萬不要____。",
+        "登山就算感到疲累，我們都不可以輕易____。",
+        "訂立了讀書計劃，就要堅持到底，不能____。",
+        "做事情最忌諱____，否則永遠無法實現目標。"
+      ]
+    },
+    { id: 8, name: "出其不意", def: "動作和做法讓人意想不到", 
+      sentences: [
+        "選手____轉換進攻方式，令對手難以招架。",
+        "妹妹____拿出手工禮物，給媽媽一個驚喜。",
+        "這次計劃要____，不要讓對方預先猜到。",
+        "隊長在關鍵時刻____地傳球，成功得分。"
+      ]
+    },
+    { id: 9, name: "後來居上", def: "原本落後，最後反超別人", 
+      sentences: [
+        "賽跑選手起初落在最後，憑耐力____，奪得冠軍。",
+        "新品牌不斷改良產品，竟然____，超越老牌公司。",
+        "小童一開始讀書進度緩慢，持續努力之後____。",
+        "這家科技公司雖然成立較晚，但憑藉新技術____。"
+      ]
+    },
+    { id: 10, name: "從容不迫", def: "遇到事情冷靜鎮定、不慌張", 
+      sentences: [
+        "面對台下眾多觀眾，他____，完成整場演講。",
+        "遇上突發火警，老師____，安排學生有序疏散。",
+        "被老師當場提問，小晴____，清晰回答問題。",
+        "即使遇到繁重的工作，他依然____地一一處理。"
+      ]
+    },
+    { id: 11, name: "急中生智", def: "緊急時候突然想出好方法", 
+      sentences: [
+        "門鎖意外關上，他____，利用細小物件打開門鎖。",
+        "舞台道具突然故障，演員____，順利完成表演。",
+        "大雨沖毀小路，領隊____，找到另一條通行路線。",
+        "發現車鑰匙鎖在車內，他____拿出了備用鑰匙。"
+      ]
+    },
+    { id: 12, name: "一鼓作氣", def: "把握氣勢，一口氣完成事情", 
+      sentences: [
+        "趁大家士氣高昂，我們____，完成今日所有任務。",
+        "大家____登上山頂，不要中途停下休息。",
+        "距離終點不遠，選手____，全力向前衝刺。",
+        "趁著頭腦清醒，我們____把功課全寫完吧。"
+      ]
+    }
+  ];
+
+  // 全局分數變數
+  let scoreFill1 = 0;
+  let scoreFill2 = 0;
+  let scoreMc = 0;
+
+  // 頁面切換
+  function switchPage(pageNum) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById(`page${pageNum}`).classList.add('active');
+    document.querySelectorAll('.tab-btn')[pageNum - 1].classList.add('active');
+
+    if(pageNum === 5) calculateTotalFillMarks();
+    if(pageNum === 7) calculateMcMarks();
+
+    window.scrollTo(0,0);
+  }
+
+  // 廣東話 (粵語 zh-HK) 語音發音
+  function speak(text) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = 'zh-HK';
+      msg.rate = 0.9;
+      window.speechSynthesis.speak(msg);
+    } else {
+      alert("你的瀏覽器不支援語音朗讀功能。");
+    }
+  }
+
+  function speakTextById(id) {
+    const text = document.getElementById(id).innerText;
+    speak(text);
+  }
+
+  // 1. 初始化頁面 1
+  function initPage1() {
+    const container = document.getElementById('idiomListDisplay');
+    container.innerHTML = '';
+    idiomsData.forEach(item => {
+      container.innerHTML += `
+        <div class="idiom-item">
+          <strong>${item.id}. ${item.name}</strong>
+          <button class="audio-btn" onclick="speak('${item.name}，${item.def}')">🔊</button>
+          <p>${item.def}</p>
+        </div>
+      `;
+    });
+  }
+
+  // 2. 頁面 3 填充 1-6 題生成
+  let fill1Questions = [];
+  function generateFill1Questions() {
+    fill1Questions = idiomsData.slice(0, 6).map(item => {
+      const randSent = item.sentences[Math.floor(Math.random() * item.sentences.length)];
+      return { ...item, currentSentence: randSent };
+    });
+
+    const bank = document.getElementById('wordBank1');
+    bank.innerHTML = '詞庫 1-6：' + fill1Questions.map(i => `<span class="word-tag">${i.name}</span>`).join('');
+
+    const sec = document.getElementById('fillSection1');
+    sec.innerHTML = '';
+    fill1Questions.forEach(q => {
+      let optionsList = fill1Questions.map(i => `<option value="${i.name}">${i.name}</option>`).join('');
+      sec.innerHTML += `
+        <div class="q-box">
+          <p><strong>第 ${q.id} 題：</strong> ${q.currentSentence.replace('____', '______')}</p>
+          <select id="fill1-ans-${q.id}">
+            <option value="">-- 請選擇成語 --</option>
+            ${optionsList}
+          </select>
+          <button class="audio-btn" onclick="speak('${q.currentSentence.replace('____', '空格')}')">🔊 聽題目</button>
+          <div id="fill1-fb-${q.id}" style="margin-top:5px;"></div>
+        </div>
+      `;
+    });
+    document.getElementById('fill1Status').style.display = 'none';
+  }
+
+  function checkFill1Answers() {
+    scoreFill1 = 0;
+    fill1Questions.forEach(q => {
+      const userVal = document.getElementById(`fill1-ans-${q.id}`).value;
+      const fb = document.getElementById(`fill1-fb-${q.id}`);
+      if (userVal === q.name) {
+        scoreFill1 += 2; // 每題 2 分
+        fb.innerHTML = `<span style="color:green;">✅ 正確！解釋：${q.def}</span>`;
+      } else {
+        fb.innerHTML = `<span style="color:red;">❌ 不正確。正確答案是【${q.name}】。（解釋：${q.def}）</span>`;
+      }
+    });
+
+    const status = document.getElementById('fill1Status');
+    status.style.display = 'block';
+    status.innerHTML = `已提交！第 1-6 題得分：${scoreFill1} / 12 分。請前往第 4 頁繼續回答 7-12 題。`;
+    speak(`第 1 至 6 題完成，獲得 ${scoreFill1} 分`);
+  }
+
+  // 3. 頁面 4 填充 7-12 題生成
+  let fill2Questions = [];
+  function generateFill2Questions() {
+    fill2Questions = idiomsData.slice(6, 12).map(item => {
+      const randSent = item.sentences[Math.floor(Math.random() * item.sentences.length)];
+      return { ...item, currentSentence: randSent };
+    });
+
+    const bank = document.getElementById('wordBank2');
+    bank.innerHTML = '詞庫 7-12：' + fill2Questions.map(i => `<span class="word-tag">${i.name}</span>`).join('');
+
+    const sec = document.getElementById('fillSection2');
+    sec.innerHTML = '';
+    fill2Questions.forEach(q => {
+      let optionsList = fill2Questions.map(i => `<option value="${i.name}">${i.name}</option>`).join('');
+      sec.innerHTML += `
+        <div class="q-box">
+          <p><strong>第 ${q.id} 題：</strong> ${q.currentSentence.replace('____', '______')}</p>
+          <select id="fill2-ans-${q.id}">
+            <option value="">-- 請選擇成語 --</option>
+            ${optionsList}
+          </select>
+          <button class="audio-btn" onclick="speak('${q.currentSentence.replace('____', '空格')}')">🔊 聽題目</button>
+          <div id="fill2-fb-${q.id}" style="margin-top:5px;"></div>
+        </div>
+      `;
+    });
+    document.getElementById('fill2Status').style.display = 'none';
+  }
+
+  function checkFill2Answers() {
+    scoreFill2 = 0;
+    fill2Questions.forEach(q => {
+      const userVal = document.getElementById(`fill2-ans-${q.id}`).value;
+      const fb = document.getElementById(`fill2-fb-${q.id}`);
+      if (userVal === q.name) {
+        scoreFill2 += 2; // 每題 2 分
+        fb.innerHTML = `<span style="color:green;">✅ 正確！解釋：${q.def}</span>`;
+      } else {
+        fb.innerHTML = `<span style="color:red;">❌ 不正確。正確答案是【${q.name}】。（解釋：${q.def}）</span>`;
+      }
+    });
+
+    const status = document.getElementById('fill2Status');
+    status.style.display = 'block';
+    status.innerHTML = `已提交！第 7-12 題得分：${scoreFill2} / 12 分。可前往第 5 頁查看填充總分。`;
+    speak(`第 7 至 12 題完成，獲得 ${scoreFill2} 分`);
+  }
+
+  // 4. 頁面 5 填充總分結算
+  function calculateTotalFillMarks() {
+    const total = scoreFill1 + scoreFill2;
+    document.getElementById('totalFillScoreDisplay').innerText = `${total} / 24`;
+    
+    let fb = "";
+    if(total === 24) fb = "🎉 太棒了！全部填充題完美答對！";
+    else if(total >= 16) fb = "👍 表現相當優秀！繼續保持！";
+    else fb = "💪 加油！可以多複習第 1 頁的釋義再試一次喔！";
+
+    document.getElementById('totalFillFeedback').innerText = fb;
+  }
+
+  // 5. 頁面 6 多項選擇題生成
+  let mcQuestions = [];
+  function generateMcQuestions() {
+    mcQuestions = idiomsData.map(item => {
+      const randSent = item.sentences[Math.floor(Math.random() * item.sentences.length)];
+      
+      let distractors = idiomsData.filter(i => i.name !== item.name).map(i => i.name);
+      distractors.sort(() => Math.random() - 0.5);
+      let opts = [item.name, distractors[0], distractors[1], distractors[2]];
+      opts.sort(() => Math.random() - 0.5);
+
+      return {
+        ...item,
+        currentSentence: randSent,
+        options: opts
+      };
+    });
+
+    const container = document.getElementById('mcSection');
+    container.innerHTML = '';
+    mcQuestions.forEach(q => {
+      let optsHTML = q.options.map(opt => `
+        <label style="margin-right: 15px; cursor:pointer;">
+          <input type="radio" name="mc-${q.id}" value="${opt}"> ${opt}
+        </label>
+      `).join('');
+
+      container.innerHTML += `
+        <div class="q-box">
+          <p><strong>第 ${q.id} 題：</strong> ${q.currentSentence.replace('____', '（  ）')}</p>
+          <div>${optsHTML}</div>
+          <button class="audio-btn" onclick="speak('${q.currentSentence.replace('____', '括號')}')" style="margin-top:8px;">🔊 廣東話發音按鈕</button>
+          <div id="mc-fb-${q.id}" style="margin-top:6px;"></div>
+        </div>
+      `;
+    });
+    document.getElementById('mcStatus').style.display = 'none';
+  }
+
+  function checkMcAnswers() {
+    scoreMc = 0;
+    mcQuestions.forEach(q => {
+      const selected = document.querySelector(`input[name="mc-${q.id}"]:checked`);
+      const fb = document.getElementById(`mc-fb-${q.id}`);
+
+      if (selected && selected.value === q.name) {
+        scoreMc += 1;
+        fb.innerHTML = `<span style="color:green;">✅ 正確！【${q.name}】：${q.def}</span>`;
+      } else {
+        fb.innerHTML = `<span style="color:red;">❌ 答錯了。正確答案是【${q.name}】。（解釋：${q.def}）</span>`;
+      }
+    });
+
+    const status = document.getElementById('mcStatus');
+    status.style.display = 'block';
+    status.innerHTML = `已提交！多項選擇題得分：${scoreMc} / 12 分。請前往第 7 頁查看成績統計。`;
+    speak(`選擇題完成，獲得 ${scoreMc} 分`);
+  }
+
+  // 6. 頁面 7 選擇題分數結算
+  function calculateMcMarks() {
+    document.getElementById('totalMcScoreDisplay').innerText = `${scoreMc} / 12`;
+    let fb = "";
+    if(scoreMc === 12) fb = "🌟 厲害！選擇題拿到滿分！";
+    else if(scoreMc >= 8) fb = "👏 表現不錯！已經掌握大部分成語了！";
+    else fb = "🌱 繼續努力，多聽聽廣東話發音會更熟練！";
+
+    document.getElementById('totalMcFeedback').innerText = fb;
+  }
+
+  // 7. 頁面 8 造句練習與語法邏輯檢查員
+  let currentSelected5Words = [];
+
+  function refreshRandom5Words() {
+    let shuffled = [...idiomsData].sort(() => Math.random() - 0.5);
+    currentSelected5Words = shuffled.slice(0, 5);
+    
+    document.getElementById('random5WordsDisplay').innerText = 
+      currentSelected5Words.map((w, idx) => `${idx+1}. ${w.name}`).join('  |  ');
+
+    const area = document.getElementById('sentenceBuildingArea');
+    area.innerHTML = '';
+
+    currentSelected5Words.forEach((wordObj, index) => {
+      area.innerHTML += `
+        <div class="q-box">
+          <p><strong>題目 ${index + 1}：請使用成語【<span style="color:var(--primary-green);">${wordObj.name}</span>】作句</strong> （意思：${wordObj.def}）</p>
+          <textarea id="sentence-input-${index}" placeholder="請寫出包含完整的背景、時間、人物與此成語的書面語句子..."></textarea>
+          <br>
+          <button class="submit-btn" onclick="checkSentenceLogic(${index}, '${wordObj.name}')">🔍 檢查語法與邏輯</button>
+          <button class="audio-btn" onclick="readSentence(${index})">🔊 廣東話朗讀我的句子</button>
+          <div id="checker-fb-${index}"></div>
+        </div>
+      `;
+    });
+  }
+
+  // 語法與邏輯檢查員核心 (本地 JavaScript)
+  function checkSentenceLogic(index, targetWord) {
+    const sentence = document.getElementById(`sentence-input-${index}`).value.trim();
+    const fbDiv = document.getElementById(`checker-fb-${index}`);
+
+    if (!sentence) {
+      fbDiv.innerHTML = `<div class="checker-feedback" style="background:#ffdddd; color:red;">⚠️ 請先在空格輸入句子再進行檢查！</div>`;
+      return;
+    }
+
+    // 檢查 1：字數檢查
+    if (sentence.length < 10) {
+      fbDiv.innerHTML = `<div class="checker-feedback" style="background:#fff3cd; color:#856404;">⚠️ 句子太簡短：缺乏完整的時間、人物或背景描寫。</div>`;
+      return;
+    }
+
+    // 檢查 2：是否包含指定成語
+    if (!sentence.includes(targetWord)) {
+      fbDiv.innerHTML = `<div class="checker-feedback" style="background:#ffdddd; color:red;">❌ 未包含目標成語：句子中必須出現「${targetWord}」。</div>`;
+      return;
+    }
+
+    // 檢查 3：邏輯矛盾檢測 (Logical Contradictions)
+    if (targetWord === "半途而廢" && (sentence.includes("堅持") || sentence.includes("成功"))) {
+      fbDiv.innerHTML = `<div class="checker-feedback" style="background:#ffdddd; color:red;">❌ 邏輯矛盾：句子中同時出現「堅持/成功」和「${targetWord}」，前後意思衝突！</div>`;
+      return;
+    }
+    if (targetWord === "量力而為" && sentence.includes("逞強")) {
+      fbDiv.innerHTML = `<div class="checker-feedback" style="background:#ffdddd; color:red;">❌ 邏輯矛盾：句子中同時出現「逞強」和「${targetWord}」，前後意思衝突！</div>`;
+      return;
+    }
+    if (targetWord === "從容不迫" && (sentence.includes("慌張") || sentence.includes("手忙腳亂"))) {
+      fbDiv.innerHTML = `<div class="checker-feedback" style="background:#ffdddd; color:red;">❌ 邏輯矛盾：句子中同時出現「慌張」和「${targetWord}」，前後意思衝突！</div>`;
+      return;
+    }
+
+    // 檢查 4：句構與關聯詞 completeness check
+    const connectives = [
+      ['即使', '仍然'], ['雖然', '但是'], ['因為', '所以'], ['不但', '而且']
+    ];
+
+    let hasPair = false;
+    let foundPairText = "";
+    connectives.forEach(pair => {
+      if (sentence.includes(pair[0]) && sentence.includes(pair[1])) {
+        hasPair = true;
+        foundPairText = `（運用了「${pair[0]}...${pair[1]}」關聯詞）`;
+      }
+    });
+
+    let hasClauseInfo = false;
+    if (sentence.includes("因為") || sentence.includes("所以") || sentence.includes("時候") || sentence.includes("在") || sentence.includes("為了")) {
+      hasClauseInfo = true;
+    }
+
+    // 通過檢查
+    let passMsg = `✅ 太棒了！句子結構完整，成功使用成語【${targetWord}】！`;
+    if (hasPair) passMsg += ` ${foundPairText}`;
+    else if (!hasClauseInfo) passMsg += ` (小建議：加入「因為...所以...」或時間背景，句子會更精彩豐富喔！)`;
+
+    fbDiv.innerHTML = `<div class="checker-feedback" style="background:#d4edda; color:#155724;">${passMsg}</div>`;
+  }
+
+  function readSentence(index) {
+    const val = document.getElementById(`sentence-input-${index}`).value;
+    if (!val.trim()) {
+      speak("請先寫下你的句子。");
+    } else {
+      speak(val);
+    }
+  }
+
+  // 初始化載入
+  window.onload = function() {
+    initPage1();
+    generateFill1Questions();
+    generateFill2Questions();
+    generateMcQuestions();
+    refreshRandom5Words();
+  };
+</script>
+
+</body>
+</html>
